@@ -1,0 +1,6 @@
+**/target/
+.*
+!.gitignore
+**/test-output/
+/logs/
+/data/

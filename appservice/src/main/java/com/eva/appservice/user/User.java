@@ -8,10 +8,12 @@ import com.eva.appservice.commons.resources.Address;
 @Document(collection = "user")
 public class User extends AbstractResource{
 
+	private String firstName;
+	private String lastName;
 	private String email;
-	private String password;
 	private Address address;
-
+	private int activityLevel;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -28,43 +30,27 @@ public class User extends AbstractResource{
 		this.address = address;
 	}
 
-	public String getPassword() {
-		return password;
+	public int getActivityLevel() {
+		return activityLevel;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setActivityLevel(int activityLevel) {
+		this.activityLevel = activityLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "User [email=" + email + ", password=" + password + ", address="
-				+ address + ", id=" + id + "]";
+	public String getLastName() {
+		return lastName;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		return result;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		
-		return true;
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 }

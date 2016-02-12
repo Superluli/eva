@@ -2,6 +2,8 @@ package com.eva.appservice.commons.resources;
 
 import org.springframework.data.annotation.Id;
 
+import com.eva.appservice.commons.CommonUtils;
+
 public abstract class AbstractResource {
 
 	@Id
@@ -13,6 +15,10 @@ public abstract class AbstractResource {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String toJsonString() {
+		return CommonUtils.toJson(this);
 	}
 
 	@Override

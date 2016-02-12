@@ -3,6 +3,7 @@ package com.eva.appservice.product;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
@@ -16,6 +17,9 @@ public class ProductService {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+
+	@Value("${mongo.querypage}")
+	private int queryPage;
 
 	public Product getById(String id) {
 
@@ -33,7 +37,7 @@ public class ProductService {
 
 		List<Product> results = mongoTemplate.find(
 				TextQuery.queryText(new TextCriteria().matching(text))
-						.sortByScore(), Product.class);
+						.sortByScore().limit(queryPage), Product.class);
 
 		return results;
 	}

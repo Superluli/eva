@@ -6,5 +6,5 @@ public class Constants {
 		
 	}
 	
-	
+	public static final String LOGGING_CORRELATIONID = "LCORID";
 }

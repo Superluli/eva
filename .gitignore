@@ -4,3 +4,8 @@
 **/test-output/
 /logs/
 /data/
+/data-repl/
+/target/
+/kafka_2.11-0.9.0.0/
+/mongodb-osx-x86_64-3.2.0/
+/elk/

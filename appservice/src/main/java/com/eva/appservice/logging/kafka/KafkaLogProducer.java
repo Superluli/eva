@@ -21,6 +21,9 @@ public class KafkaLogProducer {
 	@Value("${app.logging.kafka.topic}")
 	private String topic;
 
+	@Value("${app.logging.kafka.partition}")
+	private int partition;
+
 	@Value("${app.logging.kafka.bootstrap.servers}")
 	private String endpoint;
 
@@ -41,6 +44,9 @@ public class KafkaLogProducer {
 				"org.apache.kafka.common.serialization.StringSerializer");
 
 		producer = new KafkaProducer<String, String>(props);
+		
+		
+		System.out.println("============================" + partition);
 	}
 
 	@PreDestroy
@@ -52,8 +58,7 @@ public class KafkaLogProducer {
 
 	public void log(String log) {
 
-		producer.send(new ProducerRecord<String, String>(topic, CommonUtils
-				.generateUUID(), log));
-
+		producer.send(new ProducerRecord<String, String>(topic, partition,
+				CommonUtils.generateUUID(), log));
 	}
 }

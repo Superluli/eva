@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.WriteResultChecking;
@@ -16,6 +17,7 @@ import com.mongodb.ReadPreference;
 import com.mongodb.WriteConcern;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy
 @ComponentScan("com.eva.appservice")
 public class Application extends WebMvcConfigurerAdapter {
 

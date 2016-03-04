@@ -21,7 +21,6 @@ import org.apache.kafka.common.errors.WakeupException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Service
 public class KafkaLogConsumer_0_9 {
 
 	@Value("${app.logging.kafka.topic}")

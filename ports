@@ -1,0 +1,9 @@
+nginx 8080
+appservice (eclipse) 8080
+appservice 8081 8082 8083
+
+zookeeper 9999
+kafka 9092 9093 9094
+
+elasticsearch 9200 9201
+kibana 5601

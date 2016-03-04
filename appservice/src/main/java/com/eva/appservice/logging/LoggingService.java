@@ -1,6 +1,7 @@
 package com.eva.appservice.logging;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.concurrent.ExecutorService;
@@ -34,7 +35,7 @@ public class LoggingService {
 
 	@Autowired
 	private KafkaLogProducer kafkaLogProducer;
-
+	
 	public void logAccess(LoggingHttpServletRequestWrapper request,
 			LoggingHttpServletResponseWrapper response, long elapsedTime) {
 
@@ -77,12 +78,15 @@ public class LoggingService {
 		}
 
 		ObjectNode bodyNode = MAPPER.createObjectNode();
-		if (request.getInputStream() != null) {
+
+		byte[] bytes = request.getBytes();
+		if (bytes != null && bytes.length != 0) {
 			try {
-				bodyNode = MAPPER.readValue(request.getInputStream(),
-						ObjectNode.class);
+				bodyNode = MAPPER.readValue(bytes, ObjectNode.class);
 			} catch (IOException e) {
-				bodyNode.put("parseError", e.getMessage());
+				bodyNode.put("jsonParseError", e.getMessage());
+				bodyNode.put("rawMessage", new String(bytes,
+						StandardCharsets.UTF_8));
 			}
 		}
 
@@ -109,12 +113,17 @@ public class LoggingService {
 
 		ObjectNode bodyNode = MAPPER.createObjectNode();
 
-		try {
-			bodyNode = MAPPER.readValue(response.getBody(), ObjectNode.class);
-		} catch (IOException e) {
-			bodyNode.put("parseError", e.getMessage());
+		byte[] bytes = response.getBody();
+		if(bytes != null && bytes.length != 0){
+			try {	
+				bodyNode = MAPPER.readValue(response.getBody(), ObjectNode.class);
+			} catch (IOException e) {
+				bodyNode.put("jsonParseError", e.getMessage());
+				bodyNode.put("rawMessage", new String(bytes,
+						StandardCharsets.UTF_8));
+			}	
 		}
-
+		
 		responseNode.set("body", bodyNode);
 
 		return responseNode;

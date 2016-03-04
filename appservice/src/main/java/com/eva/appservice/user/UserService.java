@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eva.appservice.commons.exception.NestedServerRuntimeException;
+import com.eva.appservice.logging.LogMe;
 
 @Service
 public class UserService {
@@ -13,6 +14,7 @@ public class UserService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
+	@LogMe
 	public User getById(String id) {
 
 		User user = mongoTemplate.findById(id, User.class);
